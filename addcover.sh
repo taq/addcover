@@ -17,6 +17,13 @@ cover="cover.jpg"
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
+# check for eyeD3
+eyed3ok=$(which eyeD3)
+if [ -z "$eyed3ok" ]; then
+   echo "you need eyeD3 (http://eyed3.nicfit.net/) to run this script"
+   exit 1
+fi
+
 # find the cover image
 if [ ! -f "$cover" ]; then
    echo default cover not found, searching for some image ...
