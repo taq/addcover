@@ -1,4 +1,18 @@
 #!/bin/bash
+# 
+# addcover.sh - Add an image to a MP3 file
+# 
+# Homepage: http://github.com/taq/addcover
+# Author: Eustaquio 'TaQ' Rangel
+# 
+# Run this script on a directory to search and, if found,
+# add an image to MP3 files, as the cover image, for files
+# that *don't have a cover image*.
+# If needed, it converts the ID3 tag to the latest version
+# (2.4 right now).
+# 
+# Dependencies: eyeD3 is the heart of the script
+#
 cover="cover.jpg"
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
