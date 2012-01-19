@@ -18,12 +18,16 @@ SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
 # check for eyeD3
+echo -n checking for eyeD3 ...
 eyed3ok=$(which eyeD3)
 if [ -z "$eyed3ok" ]; then
    echo "you need eyeD3 (http://eyed3.nicfit.net/) to run this script"
    exit 1
 fi
+echo found.
+echo -ne "\n"
 
+echo checking default cover image ...
 # find the cover image
 if [ ! -f "$cover" ]; then
    echo default cover not found, searching for some image ...
@@ -35,6 +39,7 @@ if [ ! -f "$cover" ]; then
    cover="$first"
 fi
 echo using $cover image file ...
+echo -ne "\n"
 
 for file in $(find -iname '*.mp3'); do
    # check for the tag version
@@ -54,7 +59,7 @@ for file in $(find -iname '*.mp3'); do
       echo no image, adding $cover image ...
       eyeD3 --add-image $cover:FRONT_COVER "$file" &> /dev/null
    else
-      echo already have cover image
+      echo file already have cover image
    fi      
    echo -ne "\n"
 done
