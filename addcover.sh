@@ -25,24 +25,27 @@ header() {
    echo -ne "\n"
 }
 
+check_eyed3() {
+   echo -n checking for eyeD3 ...
+   local eyed3ok=$(which eyeD3)
+   if [ -z "$eyed3ok" ]; then
+      echo "you need eyeD3 (http://eyed3.nicfit.net/) to run this script"
+      exit 1
+   fi
+   echo " found."
+   echo -ne "\n"
+}
+
+header
 while [ "$1" ]; do
    case $1 in 
-      -v) header; exit 0;;
+      -v) exit 0;;
+      -c) check_eyed3; exit 0;;
    esac
    shift
 done
 
-header
-
-# check for eyeD3
-echo -n checking for eyeD3 ...
-eyed3ok=$(which eyeD3)
-if [ -z "$eyed3ok" ]; then
-   echo "you need eyeD3 (http://eyed3.nicfit.net/) to run this script"
-   exit 1
-fi
-echo found.
-echo -ne "\n"
+check_eyed3
 
 echo checking default cover image ...
 # find the cover image
