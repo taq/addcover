@@ -16,6 +16,23 @@
 cover="cover.jpg"
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
+VERSION=1.0
+
+header() {
+   echo ----------------------------------------------------------
+   echo addimage.sh - adding images to MP3 files, version $VERSION
+   echo ----------------------------------------------------------
+   echo -ne "\n"
+}
+
+while [ "$1" ]; do
+   case $1 in 
+      -v) header; exit 0;;
+   esac
+   shift
+done
+
+header
 
 # check for eyeD3
 echo -n checking for eyeD3 ...
