@@ -41,7 +41,7 @@ cover_img() {
    # find the cover image
    if [ ! -f "$cover" ]; then
       echo "default cover not found, searching for some image ..."
-      local first=$(find -type f -iname '*.jpg' -o -iname '*.gif' -o -iname '*.png' | sort | head)
+      local first=$(find -type f -iname '*.jpg' -o -iname '*.gif' -o -iname '*.png' | sort | head -n1)
       if [ -z "$first" ]; then
          echo "no image found, exiting ..."
          exit 1
