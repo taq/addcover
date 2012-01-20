@@ -13,10 +13,10 @@
 # 
 # Dependencies: eyeD3 is the heart of the script
 #
-cover="cover.jpg"
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 VERSION=1.0
+cover="cover.jpg"
 
 header() {
    echo ----------------------------------------------------------
@@ -36,30 +36,34 @@ check_eyed3() {
    echo -ne "\n"
 }
 
+cover_img() {
+   echo "checking default cover image ..."
+   # find the cover image
+   if [ ! -f "$cover" ]; then
+      echo "default cover not found, searching for some image ..."
+      local first=$(find -type f -iname '*.jpg' -o -iname '*.gif' -o -iname '*.png' | sort | head)
+      if [ -z "$first" ]; then
+         echo "no image found, exiting ..."
+         exit 1
+      fi
+      cover="$first"
+   fi
+   echo "using $cover image file ..."
+   echo -ne "\n"
+}
+
 header
 while [ "$1" ]; do
    case $1 in 
       -v) exit 0;;
       -c) check_eyed3; exit 0;;
+      -i) cover_img; exit 0;;
    esac
    shift
 done
 
 check_eyed3
-
-echo checking default cover image ...
-# find the cover image
-if [ ! -f "$cover" ]; then
-   echo default cover not found, searching for some image ...
-   first=$(find -type f -iname '*.jpg' -o -iname '*.gif' -o -iname '*.png' | sort | head)
-   if [ -z "$first" ]; then
-      echo no image found, exiting ...
-      exit 1
-   fi
-   cover="$first"
-fi
-echo using $cover image file ...
-echo -ne "\n"
+cover_img
 
 for file in $(find -iname '*.mp3'); do
    # check for the tag version
